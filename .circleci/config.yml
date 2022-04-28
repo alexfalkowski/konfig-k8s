@@ -1,0 +1,31 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: alexfalkowski/k8s:1.0
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.12
+          docker_layer_caching: true
+      - run: make start
+      - run: kubectl get po -A
+  release:
+    docker:
+      - image: alexfalkowski/release:2.0
+    steps:
+      - checkout
+      - run: release
+
+workflows:
+  konfig-k8s:
+    jobs:
+      - build
+      - release:
+          context: gh
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
