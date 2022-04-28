@@ -10,6 +10,7 @@ jobs:
           version: 20.10.12
           docker_layer_caching: true
       - run: make create
+      - run: kind get kubeconfig > $HOME/.kube/config
       - run: make ingress
   release:
     docker:
