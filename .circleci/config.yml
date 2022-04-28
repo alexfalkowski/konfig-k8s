@@ -9,7 +9,7 @@ jobs:
       - setup_remote_docker:
           version: 20.10.12
           docker_layer_caching: true
-      - run: make start
+      - run: make create
       - run: kubectl get po -A
   release:
     docker:
