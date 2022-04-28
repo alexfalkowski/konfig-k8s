@@ -10,7 +10,7 @@ jobs:
           version: 20.10.12
           docker_layer_caching: true
       - run: make create
-      - run: kubectl get po -A
+      - run: make ingress
   release:
     docker:
       - image: alexfalkowski/release:2.0
